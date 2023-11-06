@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
 
     //Componants
 
-    Rigidbody2D rb;
+    public static Rigidbody2D rb;
     Animator an;
 
     // Start is called before the first frame update
