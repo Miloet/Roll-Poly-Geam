@@ -13,19 +13,18 @@ public class EnemyBehavoir : MonoBehaviour
 
     public float walkSpeed;
     [System.NonSerialized] public Vector2 walkPoint;
-    //[System.NonSerialized] 
-    public bool finishedMoving;
-    //[System.NonSerialized] 
-    public bool altMovement = false;
+    [System.NonSerialized] public bool finishedMoving;
+    [System.NonSerialized] public bool altMovement = false;
 
     [Space(5)]
-    public float attackCooldown = 2;
+    public float attackCooldown = 5;
     //[System.NonSerialized] 
     public float attackTime;
+    public float baseProjectileSpread = 1;
     [Space(10)]
 
     public GameObject bullet;
-    public float baseProjectileSpread = 1;
+    
 
     [System.NonSerialized] public Rigidbody2D rb;
 
@@ -44,8 +43,6 @@ public class EnemyBehavoir : MonoBehaviour
     {
         if(time <= 0)
         {
-            StartCoroutine(MoveBehavoir());
-
             if(CanAttack() && attackTime <= 0) StartCoroutine(AttackBehavoir());
             
             
@@ -65,32 +62,38 @@ public class EnemyBehavoir : MonoBehaviour
 
             rb.velocity = direction * walkSpeed;
 
-            if(Vector2.Distance(transform.position, walkPoint) < 0.1f) finishedMoving = true;
+            if (Vector2.Distance(transform.position, walkPoint) < 0.1f)
+            {
+                finishedMoving = true;
+                StartCoroutine(MoveBehavoir());
+            }
         }
     }
     public virtual IEnumerator MoveBehavoir()
     {
         if(finishedMoving)
         {
+            float t = Random.Range(.5f, 2f);
+            yield return new WaitForSeconds(t);
             walkPoint = (Vector2)transform.position + BulletSpread(5);
-            yield return new WaitForSeconds(5);
             finishedMoving = false;
         }
     }
     public virtual IEnumerator AttackBehavoir()
     {
         altMovement = true;
-        walkPoint = transform.position;
-        attackTime = attackCooldown;
+        //walkPoint = transform.position;
+        attackTime = 9999;
         rb.velocity = Vector2.zero;
 
         for (int i = 0; i < 3; i++)
         {
-            Shoot(5,.5f,0.5f,5);
+            Shoot(9,0.5f,0.5f,5);
             yield return new WaitForSeconds(0.2f);
         }
         yield return new WaitForSeconds(1f);
 
+        attackTime = attackCooldown * Random.Range(0.5f, 1.2f);
         altMovement = false;
     }
     public virtual bool CanAttack()
@@ -100,13 +103,15 @@ public class EnemyBehavoir : MonoBehaviour
     public void Shoot(float projectileSpeed ,float change = -1f, float randomSpread = -1f, float untillDeath = 10f)
     {
         var g = Instantiate(bullet);
+        g.transform.position = transform.position;
         Vector2 direction = GetDirectionToPlayer(projectileSpeed, change, randomSpread);
+        print(direction.x + "  -  " + direction.y);
         g.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
         g.transform.rotation = Quaternion.LookRotation(transform.forward, direction);
         Destroy(g, untillDeath);
     }
 
-    public Vector2 GetDirectionToPlayer(float speed, float change = -1f, float randomSpread = -1f)
+    public Vector2 GetDirectionToPlayer(float speed, float change = 0.5f, float randomSpread = -1f)
     {
         Rigidbody2D ccRB = CharacterController.rb;
 
@@ -136,8 +141,13 @@ public class EnemyBehavoir : MonoBehaviour
 
     private Vector2 BulletSpread(float custom = -1f)
     {
-        if (custom != -1f) return new Vector2((Random.value * 2 - 0.5f) * custom, (Random.value * 2 - 0.5f) * custom).normalized;
-        return new Vector2(Random.value * baseProjectileSpread, (Random.value * 2 - 0.5f) * baseProjectileSpread).normalized;
+        Vector2 spread;
+
+        if (custom != -1f) spread = new Vector2((Random.value * 2 - 0.5f) * custom, (Random.value * 2 - 0.5f) * custom);
+        else spread = new Vector2((Random.value * 2 - 0.5f) * baseProjectileSpread, (Random.value * 2 - 0.5f) * baseProjectileSpread);
+
+
+        return Vector2.ClampMagnitude(spread, 1f);
     }
 
     

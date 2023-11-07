@@ -64,8 +64,8 @@ public class InterceptTest : MonoBehaviour
 
     private Vector2 BulletSpread(float custom = -1f)
     {
-        if(custom != -1f) return new Vector2(Random.value * custom, (Random.value * 2 - 0.5f) * custom);
-        return new Vector2(Random.value * spread, (Random.value*2 - 0.5f) * spread);
+        if(custom != -1f) return new Vector2((Random.value * 2 - 0.5f) * custom, (Random.value * 2 - 0.5f) * custom);
+        return new Vector2((Random.value * 2 - 0.5f) * spread, (Random.value*2 - 0.5f) * spread);
     }
 
     private void ShootBullet(float CustomSpread = -1f, float change = 0.5f)
