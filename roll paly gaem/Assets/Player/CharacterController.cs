@@ -33,6 +33,6 @@ public class CharacterController : MonoBehaviour
             an.SetFloat("Vertical", input.y);
         }
 
-        rb.velocity = input * walkSpeed;
+        rb.velocity = Vector2.ClampMagnitude(input, 1f) * walkSpeed;
     }
 }
