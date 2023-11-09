@@ -105,7 +105,6 @@ public class EnemyBehavoir : MonoBehaviour
         var g = Instantiate(bullet);
         g.transform.position = transform.position;
         Vector2 direction = GetDirectionToPlayer(projectileSpeed, change, randomSpread);
-        print(direction.x + "  -  " + direction.y);
         g.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
         g.transform.rotation = Quaternion.LookRotation(transform.forward, direction);
         Destroy(g, untillDeath);
