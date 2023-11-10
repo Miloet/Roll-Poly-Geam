@@ -8,7 +8,7 @@ public class EnemyBehavoir : MonoBehaviour
 
     public int MaxHP = 10;
     [System.NonSerialized] public int HP;
-
+    [System.NonSerialized] public Vector2 knockback;
     [Space(10)]
 
     public float walkSpeed;
@@ -24,6 +24,7 @@ public class EnemyBehavoir : MonoBehaviour
     [Space(10)]
 
     public GameObject bullet;
+    public GameObject body;
     
 
     [System.NonSerialized] public Rigidbody2D rb;
@@ -36,6 +37,9 @@ public class EnemyBehavoir : MonoBehaviour
         HP = MaxHP;
 
         rb = GetComponent<Rigidbody2D>();
+
+        attackTime = attackCooldown;
+        walkPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -52,6 +56,7 @@ public class EnemyBehavoir : MonoBehaviour
         time -= Time.deltaTime;
         attackTime = Mathf.Max(attackTime - Time.deltaTime, 0);
         Move();
+        knockback = knockback.normalized * knockback.magnitude * 0.75f;
     }
 
     public virtual void Move()
@@ -60,29 +65,43 @@ public class EnemyBehavoir : MonoBehaviour
         {
             Vector2 direction = (walkPoint - (Vector2)transform.position).normalized;
 
-            rb.velocity = direction * walkSpeed;
+            rb.velocity = direction * walkSpeed + knockback;
 
             if (Vector2.Distance(transform.position, walkPoint) < 0.1f)
             {
                 finishedMoving = true;
                 StartCoroutine(MoveBehavoir());
             }
+            else
+                if(Time.deltaTime > Random.value) MoveBehavoir();
         }
+        else rb.velocity = knockback;
     }
     public virtual IEnumerator MoveBehavoir()
     {
         if(finishedMoving)
         {
+            int range = 5;
             float t = Random.Range(.5f, 2f);
             yield return new WaitForSeconds(t);
-            walkPoint = (Vector2)transform.position + BulletSpread(5);
+
+            Vector2 playerPos = CharacterController.rb.transform.position;
+            float distance = Vector2.Distance(transform.position, playerPos);
+            for (int i = 0; i < 5; i++)
+            {
+                walkPoint = (Vector2)transform.position +
+                    new Vector2(Random.Range(-range, range),
+                    Random.Range(-range, range));
+
+                if (distance > 5 && Vector2.Distance(walkPoint, playerPos) < distance) break;
+                if (distance < 2 && Vector2.Distance(walkPoint, playerPos) > distance) break;
+            }
             finishedMoving = false;
         }
     }
     public virtual IEnumerator AttackBehavoir()
     {
         altMovement = true;
-        //walkPoint = transform.position;
         attackTime = 9999;
         rb.velocity = Vector2.zero;
 
@@ -142,8 +161,8 @@ public class EnemyBehavoir : MonoBehaviour
     {
         Vector2 spread;
 
-        if (custom != -1f) spread = new Vector2((Random.value * 2 - 0.5f) * custom, (Random.value * 2 - 0.5f) * custom);
-        else spread = new Vector2((Random.value * 2 - 0.5f) * baseProjectileSpread, (Random.value * 2 - 0.5f) * baseProjectileSpread);
+        if (custom != -1f) spread = new Vector2(Random.Range(-1, 1) * custom, Random.Range(-1, 1) * custom); 
+        else spread = new Vector2(Random.Range(-1, 1) * baseProjectileSpread, Random.Range(-1, 1) * baseProjectileSpread);
 
 
         return Vector2.ClampMagnitude(spread, 1f);
@@ -151,5 +170,20 @@ public class EnemyBehavoir : MonoBehaviour
 
     
 
+
+
+    public void TakeDamage(int dmg, Vector2 force)
+    {
+        HP = Mathf.Clamp(HP - dmg, 0, MaxHP);
+        knockback = force;
+        if (HP <= 0) Die();
+    }
+    public void Die()
+    {
+        var g = Instantiate(body);
+        Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.velocity = knockback * 2;
+        Destroy(gameObject);
+    }
 
 }
