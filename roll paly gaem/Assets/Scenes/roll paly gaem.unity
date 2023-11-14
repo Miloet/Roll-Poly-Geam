@@ -3219,7 +3219,7 @@ GameObject:
   - component: {fileID: 985695546}
   - component: {fileID: 985695543}
   - component: {fileID: 985695545}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -11194,17 +11194,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2794410608214122450, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: orthographic size
-      value: 5.625
+    - target: {fileID: 5648966554281146671, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: knockback
+      value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 2794410608214122450, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2794410608214122450, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+    - target: {fileID: 6076132411547115509, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: knockback
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8227454244839020649, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11263,17 +11259,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4105915221341339067, guid: 18189e86d5e28664c8f449e03b5b7012, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6411718885563398304, guid: 18189e86d5e28664c8f449e03b5b7012, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8909114526530345573, guid: 18189e86d5e28664c8f449e03b5b7012, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 8909114526530345573, guid: 18189e86d5e28664c8f449e03b5b7012, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 8909114526530345573, guid: 18189e86d5e28664c8f449e03b5b7012, type: 3}
       propertyPath: m_LocalPosition.z

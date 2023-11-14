@@ -12,9 +12,21 @@ public class EnemyBehavoir : MonoBehaviour
     [Space(10)]
 
     public float walkSpeed;
-    [System.NonSerialized] public Vector2 walkPoint;
-    [System.NonSerialized] public bool finishedMoving;
-    [System.NonSerialized] public bool altMovement = false;
+    [System.NonSerialized] public Vector2 direction;
+    [System.NonSerialized] public MoveType state;
+    float moveTimer;
+
+    public static Transform player;
+
+    public enum MoveType
+    {
+        Idle,
+        Approach,
+        Run,
+        Walk,
+        Attack,
+        Knockback,
+    }
 
     [Space(5)]
     public float attackCooldown = 5;
@@ -28,8 +40,9 @@ public class EnemyBehavoir : MonoBehaviour
     
 
     [System.NonSerialized] public Rigidbody2D rb;
+    [System.NonSerialized] public Animator an;
 
-    [SerializeField] private float time = 0;
+    private float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +50,14 @@ public class EnemyBehavoir : MonoBehaviour
         HP = MaxHP;
 
         rb = GetComponent<Rigidbody2D>();
+        an = GetComponent<Animator>();
 
-        attackTime = attackCooldown;
-        walkPoint = transform.position;
+        attackTime = attackCooldown * Random.Range(0.5f, 1.2f);
+        direction = transform.position;
+
+        if(player == null) player = CharacterController.rb.transform;
+
+        state = MoveType.Idle;
     }
 
     // Update is called once per frame
@@ -48,62 +66,105 @@ public class EnemyBehavoir : MonoBehaviour
         if(time <= 0)
         {
             if(CanAttack() && attackTime <= 0) StartCoroutine(AttackBehavoir());
+            MoveBehavoir();
             
-            
-            time = 0.1f;
+            time = 0.2f;
         }
 
         time -= Time.deltaTime;
         attackTime = Mathf.Max(attackTime - Time.deltaTime, 0);
         Move();
-        knockback = knockback.normalized * knockback.magnitude * 0.75f;
+        knockback = knockback.normalized * knockback.magnitude;
+
+        an.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
     }
 
     public virtual void Move()
     {
-        if (!altMovement && !finishedMoving)
+        switch(state)
         {
-            Vector2 direction = (walkPoint - (Vector2)transform.position).normalized;
+            case MoveType.Idle:
 
-            rb.velocity = direction * walkSpeed + knockback;
+                if (moveTimer <= 0) SwitchState(MoveType.Idle);
+                rb.velocity = direction * walkSpeed/2f;
+                moveTimer -= Time.deltaTime;
 
-            if (Vector2.Distance(transform.position, walkPoint) < 0.1f)
-            {
-                finishedMoving = true;
-                StartCoroutine(MoveBehavoir());
-            }
-            else
-                if(Time.deltaTime > Random.value) MoveBehavoir();
+                break;
+            case MoveType.Approach:
+
+                rb.velocity = -(transform.position - player.position).normalized * walkSpeed;
+                if (Vector2.Distance(transform.position, player.position) < 5) SwitchState(MoveType.Idle);
+
+                break;
+            case MoveType.Run:
+
+                rb.velocity = (transform.position - player.position).normalized * walkSpeed;
+                if (Vector2.Distance(transform.position, player.position) > 5) SwitchState(MoveType.Idle);
+
+                break;
+            case MoveType.Attack:
+
+                if (moveTimer <= 0) SwitchState(MoveType.Idle);
+                rb.velocity = Vector2.zero;
+                moveTimer -= Time.deltaTime;
+
+                break;
+            case MoveType.Knockback:
+                if (moveTimer <= 0) SwitchState(MoveType.Idle);
+                rb.velocity = knockback * moveTimer*2f;
+                moveTimer -= Time.deltaTime;
+                break;
         }
-        else rb.velocity = knockback;
+
     }
-    public virtual IEnumerator MoveBehavoir()
+
+    public void SwitchState(MoveType newState, float t = 0)
     {
-        if(finishedMoving)
+        state = newState;
+
+        switch (state)
         {
-            int range = 5;
-            float t = Random.Range(.5f, 2f);
-            yield return new WaitForSeconds(t);
+            case MoveType.Idle:
 
-            Vector2 playerPos = CharacterController.rb.transform.position;
-            float distance = Vector2.Distance(transform.position, playerPos);
-            for (int i = 0; i < 5; i++)
-            {
-                walkPoint = (Vector2)transform.position +
-                    new Vector2(Random.Range(-range, range),
-                    Random.Range(-range, range));
+                direction = new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized;
+                moveTimer = Random.Range(0.2f, 2);
 
-                if (distance > 5 && Vector2.Distance(walkPoint, playerPos) < distance) break;
-                if (distance < 2 && Vector2.Distance(walkPoint, playerPos) > distance) break;
-            }
-            finishedMoving = false;
+                break;
+            case MoveType.Approach:
+
+                break;
+            case MoveType.Run:
+
+                break;
+            case MoveType.Attack:
+
+                break;
+            case MoveType.Knockback:
+                moveTimer = 0.5f;
+                break;
         }
+
+        if (t != 0) moveTimer = t;
+    }
+    public virtual void MoveBehavoir()
+    {
+
+        if (state != MoveType.Attack || state != MoveType.Knockback)
+        {
+            float distance = Vector2.Distance(player.position, transform.position);
+
+            if (distance < 2f) SwitchState(MoveType.Run);
+            if (distance > 6f) SwitchState(MoveType.Approach);
+        }
+
+
     }
     public virtual IEnumerator AttackBehavoir()
     {
-        altMovement = true;
         attackTime = 9999;
         rb.velocity = Vector2.zero;
+
+        SwitchState(MoveType.Attack, 3f);
 
         for (int i = 0; i < 3; i++)
         {
@@ -113,7 +174,6 @@ public class EnemyBehavoir : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         attackTime = attackCooldown * Random.Range(0.5f, 1.2f);
-        altMovement = false;
     }
     public virtual bool CanAttack()
     {
@@ -176,11 +236,14 @@ public class EnemyBehavoir : MonoBehaviour
     {
         HP = Mathf.Clamp(HP - dmg, 0, MaxHP);
         knockback = force;
+        SwitchState(MoveType.Knockback);
         if (HP <= 0) Die();
+        else an.SetTrigger("Hit");
     }
     public void Die()
     {
         var g = Instantiate(body);
+        g.transform.position = transform.position;
         Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
         if (rb != null) rb.velocity = knockback * 2;
         Destroy(gameObject);

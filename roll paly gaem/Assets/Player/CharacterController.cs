@@ -5,21 +5,23 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public float walkSpeed = 1f;
-    public static Vector2 input;
+    public static Vector2 movementInput;
 
     //Componants
 
     public static Rigidbody2D rb;
     Animator an;
 
-
+    Buffer attack; 
     bool altAttack;
     float attackCooldown;
 
-    public GameObject aim;
+    GameObject aim;
 
-    public GameObject whip;
-    public GameObject sword;
+    GameObject whip;
+    GameObject sword;
+
+    
 
     private Camera cam;
 
@@ -36,22 +38,34 @@ public class CharacterController : MonoBehaviour
         aim = transform.Find("Aim").gameObject;
         sword = aim.transform.Find("Sword").gameObject;
         whip = aim.transform.Find("Whip").gameObject;
+
+
+        attack = Buffer.SetBuffer(gameObject,0.15f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (input.x != 0 || input.y != 0)
+
+
+        if(Input.GetAxisRaw("Attack") != 0) attack.Pressed();
+
+        movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+
+
+        if (movementInput.x != 0 || movementInput.y != 0)
         {
-            an.SetFloat("Horizontal", input.x);
-            an.SetFloat("Vertical", input.y);
+            an.SetFloat("Horizontal", movementInput.x);
+            an.SetFloat("Vertical", movementInput.y);
         }
 
-        rb.velocity = Vector2.ClampMagnitude(input, 1f) * walkSpeed;
+        rb.velocity = Vector2.ClampMagnitude(movementInput, 1f) * walkSpeed;
 
-        if (attackCooldown <= 0)
+        if (attackCooldown <= 0 && attack.GetPress())
         {
+            attack.Unpress();
+
             if (!altAttack) StartCoroutine(SwordAttack());
             else StartCoroutine(WhipAttack());
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -68,20 +82,32 @@ public class CharacterController : MonoBehaviour
 
     public IEnumerator WhipAttack() 
     {
+        attackCooldown = 9999;
+        yield return new WaitForSeconds(0.10f);
         whip.SetActive(true);
-        attackCooldown = 0.25f;
+        
         //whipAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(0.15f);
+        attackCooldown = 0.25f;
         whip.SetActive(false);
     }
 
     public IEnumerator SwordAttack() 
     {
-        sword.SetActive(true);
+        float original = walkSpeed;
+        walkSpeed = walkSpeed / 2f;
+        attackCooldown = 9999;
 
-        attackCooldown = 0.5f;
+
+        yield return new WaitForSeconds(0.35f);
+
+        sword.SetActive(true);
         //swordAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.15f);
+
+        yield return new WaitForSeconds(0.4f);
+
+        walkSpeed = original;
+        attackCooldown = 0.5f;
         sword.SetActive(false);
     }
     

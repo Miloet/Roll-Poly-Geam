@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(tag != collision.tag)
+        if(!CompareTag(collision.tag))
         {
             switch(collision.tag)
             {

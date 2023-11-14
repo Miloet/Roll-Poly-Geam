@@ -64,13 +64,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.709375
-    height: 0.3333333
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -173,9 +173,10 @@ GameObject:
   - component: {fileID: 3590406739401287689}
   - component: {fileID: 729555967929061293}
   - component: {fileID: 3791194014022579730}
+  - component: {fileID: 6076132411547115509}
   m_Layer: 0
   m_Name: Whip
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -292,6 +293,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6076132411547115509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2537376035061606910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514e0ab2090c6974198919f5d402ae04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 3
+  knockback: 2
+  straightKnockback: 1
 --- !u!1 &2990595606648260699
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,9 +319,10 @@ GameObject:
   - component: {fileID: 6020517154594766463}
   - component: {fileID: 1710863740876404989}
   - component: {fileID: 987572829144542967}
+  - component: {fileID: 5648966554281146671}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,6 +439,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5648966554281146671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990595606648260699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514e0ab2090c6974198919f5d402ae04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 6
+  knockback: 4
+  straightKnockback: 0
 --- !u!1 &4865397950306669724
 GameObject:
   m_ObjectHideFlags: 0
