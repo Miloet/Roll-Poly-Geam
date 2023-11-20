@@ -13,10 +13,10 @@ public class CameraMan : MonoBehaviour
         playerRB = player.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        transform.position = Vector2.Lerp(transform.position, player.position, Time.deltaTime*speed);
-        transform.position = new Vector3(transform.position.x,transform.position.y,-10);
+        Vector2 direction = player.position - transform.position;
+        transform.position = transform.position + (Vector3)(direction / speed) * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 }

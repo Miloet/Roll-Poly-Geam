@@ -49,11 +49,11 @@ TagManager:
   - name: DecoWall
     uniqueID: 683147313
     locked: 0
-  - name: Player
-    uniqueID: 2160765813
-    locked: 0
   - name: Enemies
     uniqueID: 1435922109
+    locked: 0
+  - name: Player
+    uniqueID: 2160765813
     locked: 0
   - name: Wall
     uniqueID: 305429245

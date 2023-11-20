@@ -3362,7 +3362,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 683147313
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3682,7 +3682,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 13
-      m_TileSpriteIndex: 13
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 5
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3937,16 +3937,16 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 14
     m_Data: {fileID: 944332960, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -773184711, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 18
     m_Data: {fileID: -1956301911, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -773184711, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 969954985, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   - m_RefCount: 1
@@ -15316,6 +15316,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
+      propertyPath: m_CropFrame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
+      propertyPath: m_GridSnapping
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15325,6 +15333,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 4805274837593914600}
   - {fileID: 1487951566840188300}
   - {fileID: 4380465754224776556}
   - {fileID: 35217745}
@@ -15332,4 +15341,3 @@ SceneRoots:
   - {fileID: 1128048625}
   - {fileID: 1789776313}
   - {fileID: 1293558221207499557}
-  - {fileID: 4805274837593914600}

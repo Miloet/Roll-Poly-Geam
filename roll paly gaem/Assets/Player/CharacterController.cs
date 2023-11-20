@@ -25,18 +25,13 @@ public class CharacterController : MonoBehaviour
     Animator swordAnimator;
     SpriteRenderer swordSR;
 
-    Color SwordDefaultColor =   new Color(190f, 210f, 210f, 255f)   /   255f;
-    Color WhipDefaultColor =    new Color(165f, 40f, 40f, 255f)     /   255f;
+    Color SwordDefaultColor = new Color(1, 1, 1, 1);
+    Color WhipDefaultColor = new Color(1, 1, 1, 1);
 
-    Color SwordNotReady =       new Color(60f, 80f, 80f, 255f)      /   255f; 
-    Color WhipNotReady =        new Color(50f, 10f, 10f, 255f)      /   255f;
+    Color SwordNotReady = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+    Color WhipNotReady = new Color(0.8f, 0.8f, 0.8f, 0.8f);
 
-    
-
-    
     private Camera cam;
-    
-
 
     // Start is called before the first frame update
     void Start()

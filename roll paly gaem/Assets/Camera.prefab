@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 223573345264091781}
+  - component: {fileID: 8292012726708286818}
   - component: {fileID: 5278607578803372992}
   - component: {fileID: 4026969253086105632}
   - component: {fileID: 1634382644396674529}
   - component: {fileID: 5933755644363656771}
-  - component: {fileID: 8292012726708286818}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -29,13 +29,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204542193814953689}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.16, y: 0.05, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8292012726708286818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204542193814953689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6989e181ce90b5c41b37b43543e8360a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!20 &5278607578803372992
 Camera:
   m_ObjectHideFlags: 0
@@ -124,7 +137,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
-  m_AllowXRRendering: 1
+  m_AllowXRRendering: 0
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -156,23 +169,10 @@ MonoBehaviour:
   m_RefResolutionX: 300
   m_RefResolutionY: 180
   m_CropFrame: 2
-  m_GridSnapping: 1
+  m_GridSnapping: 0
   m_FilterMode: 0
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!114 &8292012726708286818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204542193814953689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6989e181ce90b5c41b37b43543e8360a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
