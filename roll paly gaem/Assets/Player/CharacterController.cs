@@ -19,12 +19,22 @@ public class CharacterController : MonoBehaviour
     GameObject aim;
 
     GameObject whip;
+    Animator whipAnimator;
+    SpriteRenderer whipSR;
     GameObject sword;
+    Animator swordAnimator;
+    SpriteRenderer swordSR;
+
+    Color SwordDefaultColor =   new Color(190f, 210f, 210f, 255f)   /   255f;
+    Color WhipDefaultColor =    new Color(165f, 40f, 40f, 255f)     /   255f;
+
+    Color SwordNotReady =       new Color(60f, 80f, 80f, 255f)      /   255f; 
+    Color WhipNotReady =        new Color(50f, 10f, 10f, 255f)      /   255f;
 
     
 
+    
     private Camera cam;
-
     
 
 
@@ -36,9 +46,17 @@ public class CharacterController : MonoBehaviour
         an = GetComponent<Animator>();
 
         aim = transform.Find("Aim").gameObject;
-        sword = aim.transform.Find("Sword").gameObject;
-        whip = aim.transform.Find("Whip").gameObject;
 
+        sword = aim.transform.Find("Sword").gameObject;
+        swordAnimator = sword.GetComponent<Animator>();
+        swordSR = sword.GetComponent<SpriteRenderer>();
+
+        whip = aim.transform.Find("Whip").gameObject;
+        whipAnimator = whip.GetComponent<Animator>();
+        whipSR = whip.GetComponent<SpriteRenderer>();
+
+        whipSR.color = WhipNotReady;
+        swordSR.color = SwordDefaultColor;
 
         attack = Buffer.SetBuffer(gameObject,0.15f);
     }
@@ -46,11 +64,9 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if(Input.GetAxisRaw("Attack") != 0) attack.Pressed();
 
-        movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
 
 
@@ -62,53 +78,61 @@ public class CharacterController : MonoBehaviour
 
         rb.velocity = Vector2.ClampMagnitude(movementInput, 1f) * walkSpeed;
 
+        if (attackCooldown <= 0)
+        {
+            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (Vector2)transform.position - mousePos;
+            aim.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+        }
+
         if (attackCooldown <= 0 && attack.GetPress())
         {
             attack.Unpress();
 
             if (!altAttack) StartCoroutine(SwordAttack());
             else StartCoroutine(WhipAttack());
-            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (Vector2)transform.position - mousePos;
-            aim.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+
             altAttack = !altAttack;
         }
         attackCooldown = Mathf.Max(attackCooldown - Time.deltaTime, 0);
-
-
-        
-
     }
 
     public IEnumerator WhipAttack() 
     {
+        whipSR.color = WhipDefaultColor;
         attackCooldown = 9999;
-        yield return new WaitForSeconds(0.10f);
-        whip.SetActive(true);
+
+        yield return new WaitForSeconds(.1f);
+        whipAnimator.SetTrigger("Attack");
         
-        //whipAnimator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.15f);
-        attackCooldown = 0.25f;
-        whip.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+
+        swordSR.color = SwordDefaultColor;
+        attackCooldown = 0.3f;
+
+        yield return new WaitForSeconds(0.3f);
+
+        whipSR.color = WhipNotReady;
     }
 
     public IEnumerator SwordAttack() 
     {
+        
+        swordSR.color = SwordDefaultColor;
+
         float original = walkSpeed;
         walkSpeed = walkSpeed / 2f;
         attackCooldown = 9999;
+        swordAnimator.SetTrigger("Attack");
 
+        yield return new WaitForSeconds(0.5f);
 
-        yield return new WaitForSeconds(0.35f);
-
-        sword.SetActive(true);
-        //swordAnimator.SetTrigger("Attack");
-
-        yield return new WaitForSeconds(0.4f);
-
+        whipSR.color = WhipDefaultColor;
         walkSpeed = original;
         attackCooldown = 0.5f;
-        sword.SetActive(false);
+
+        yield return new WaitForSeconds(0.2f);
+        swordSR.color = SwordNotReady;
     }
     
 }

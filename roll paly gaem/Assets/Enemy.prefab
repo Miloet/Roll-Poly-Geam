@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8909114526530345573}
-  - component: {fileID: 532403038133228944}
   - component: {fileID: 4105915221341339067}
+  - component: {fileID: 532403038133228944}
   - component: {fileID: 8381652054296125967}
   - component: {fileID: 8816841936410445340}
   - component: {fileID: 4356509317265468805}
@@ -36,26 +36,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532403038133228944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6411718885563398304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7fdff970cdec44a88b197de98a4f80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHP: 10
-  walkSpeed: 3
-  attackCooldown: 5
-  attackTime: 0
-  baseProjectileSpread: 1
-  bullet: {fileID: 639345701069656077, guid: e1fa927af400da249af2b179da1c9e2a, type: 3}
-  body: {fileID: 6411718885563398304, guid: c3ea6ab1464be6c418d40bd581ca2422, type: 3}
-  time: 0
 --- !u!50 &4105915221341339067
 Rigidbody2D:
   serializedVersion: 4
@@ -83,6 +63,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &532403038133228944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6411718885563398304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7fdff970cdec44a88b197de98a4f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHP: 10
+  walkSpeed: 3
+  attackCooldown: 5
+  attackTime: 0
+  baseProjectileSpread: 1
+  bullet: {fileID: 639345701069656077, guid: e1fa927af400da249af2b179da1c9e2a, type: 3}
+  body: {fileID: 6411718885563398304, guid: c3ea6ab1464be6c418d40bd581ca2422, type: 3}
 --- !u!212 &8381652054296125967
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,8 +120,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1435922109
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -401118643, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

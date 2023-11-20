@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour
     public int dmg;
     public int knockback;
     public bool straightKnockback;
+    public bool deflect;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,11 +16,26 @@ public class Attack : MonoBehaviour
             switch (collision.tag)
             {
                 case "Enemy":
-                    collision.GetComponent<EnemyBehavoir>().TakeDamage(dmg, GetKnockback(collision.transform));
+                    EnemyBehavoir eb = collision.GetComponent<EnemyBehavoir>();
+                    if(eb != null) eb.TakeDamage(dmg, GetKnockback(collision.transform));
+                    else
+                    {
+                        if (deflect)
+                        {
+                            Bullet b = collision.GetComponent<Bullet>();
+                            if (b != null)
+                            {
+                                b.Deflect(transform, true);
+                            }
+                        }
+                    }
+
 
                     break;
                 case "Player":
-                    collision.GetComponent<Player>().TakeDamage(dmg);
+
+                    Player player = collision.GetComponent<Player>();
+                    if (player != null) player.TakeDamage(dmg);
                     
                     break;
             }
@@ -30,6 +46,6 @@ public class Attack : MonoBehaviour
     public Vector3 GetKnockback(Transform hit)
     {
         if (straightKnockback) return transform.rotation * Vector2.up * knockback;
-        else return (hit.position - transform.position).normalized * knockback;
+        else return (hit.position - CharacterController.rb.transform.position).normalized * knockback;
     }
 }

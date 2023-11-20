@@ -74,7 +74,6 @@ public class EnemyBehavoir : MonoBehaviour
         time -= Time.deltaTime;
         attackTime = Mathf.Max(attackTime - Time.deltaTime, 0);
         Move();
-        knockback = knockback.normalized * knockback.magnitude;
 
         an.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
     }
@@ -183,9 +182,13 @@ public class EnemyBehavoir : MonoBehaviour
     {
         var g = Instantiate(bullet);
         g.transform.position = transform.position;
+
         Vector2 direction = GetDirectionToPlayer(projectileSpeed, change, randomSpread);
-        g.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-        g.transform.rotation = Quaternion.LookRotation(transform.forward, direction);
+        
+        Bullet firedBullet = g.GetComponent<Bullet>();
+        firedBullet.creator = this;
+        firedBullet.SetSpeed(direction * projectileSpeed);
+
         Destroy(g, untillDeath);
     }
 

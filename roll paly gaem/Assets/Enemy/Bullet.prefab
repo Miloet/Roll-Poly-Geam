@@ -129,6 +129,8 @@ MonoBehaviour:
   damage: 1
   force: 2
   piercing: 0
+  rb: {fileID: 299690906802971988}
+  creator: {fileID: 0}
 --- !u!61 &1421775971430866284
 BoxCollider2D:
   m_ObjectHideFlags: 0
