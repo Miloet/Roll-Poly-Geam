@@ -15138,21 +15138,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 634703400717837206, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
+    - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: gunProjectileSpeed
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 634703400717837206, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 634703400717837206, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 634703400717837206, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
+    - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: sniperProjectileSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8227454244839020649, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15323,6 +15315,10 @@ PrefabInstance:
     - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_GridSnapping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8292012726708286818, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
+      propertyPath: speed
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

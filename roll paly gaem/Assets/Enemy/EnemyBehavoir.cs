@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyBehavoir : MonoBehaviour
 {
-    
-
     public int MaxHP = 10;
     [System.NonSerialized] public int HP;
     [System.NonSerialized] public Vector2 knockback;

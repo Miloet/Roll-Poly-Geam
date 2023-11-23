@@ -16,7 +16,7 @@ public class CameraMan : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 direction = player.position - transform.position;
-        transform.position = transform.position + (Vector3)(direction / speed) * Time.deltaTime;
+        transform.position = transform.position + (Vector3)(direction * speed) * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 }

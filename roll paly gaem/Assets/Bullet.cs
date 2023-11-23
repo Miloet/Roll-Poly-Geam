@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
     public EnemyBehavoir creator;
 
+    float destroyDelay = 0;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!CompareTag(collision.tag))
@@ -22,7 +24,7 @@ public class Bullet : MonoBehaviour
                     if (eb != null)
                     {
                         eb.TakeDamage(damage, rb.velocity.normalized * force);
-                        if (!piercing) Destroy(gameObject, 0.1f);
+                        if (!piercing) Destroy(gameObject, destroyDelay);
                     }
 
                     break; 
@@ -32,11 +34,11 @@ public class Bullet : MonoBehaviour
                     if (player != null)
                     {
                         player.TakeDamage(damage);
-                        if (!piercing) Destroy(gameObject, 0.1f);
+                        if (!piercing) Destroy(gameObject, destroyDelay);
                     }
                     break; 
                 case "Wall":
-                    Destroy(gameObject, 0.1f);
+                    Destroy(gameObject, destroyDelay);
                     break; 
             }
         }
