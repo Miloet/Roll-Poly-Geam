@@ -15140,11 +15140,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: gunProjectileSpeed
-      value: 3
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: sniperProjectileSpeed
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8227454244839020649, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15307,6 +15307,14 @@ PrefabInstance:
     - target: {fileID: 223573345264091781, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0.03125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 0.93750006
       objectReference: {fileID: 0}
     - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_CropFrame

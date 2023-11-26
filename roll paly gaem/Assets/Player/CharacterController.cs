@@ -106,7 +106,7 @@ public class CharacterController : MonoBehaviour
     {
         if (Input.GetAxisRaw("Attack") != 0) attack.Pressed();
 
-        #region//Movement
+        #region Movement
 
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -131,8 +131,6 @@ public class CharacterController : MonoBehaviour
 
         if (attackCooldown <= 0 && attack.GetPress())
         {
-            attack.Unpress();
-
             if (!altAttack) StartCoroutine(SwordAttack());
             else StartCoroutine(WhipAttack());
 
@@ -152,9 +150,11 @@ public class CharacterController : MonoBehaviour
 
             direction = (Vector2)gunSR.transform.position - mousePos;
             gunSR.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            gunSR.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
 
             direction = (Vector2)sniperSR.transform.position - mousePos;
             sniperSR.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            sniperSR.transform.Rotate(new Vector3(0,0,90), Space.Self);
         }
 
         if (shootCooldown <= 0 && shoot.GetPress())

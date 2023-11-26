@@ -10,7 +10,30 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
     public EnemyBehavoir creator;
 
+    public bool HaveTrail = false;
+    private GameObject trail;
+    public GameObject trailPrefab;
+
     float destroyDelay = 0;
+
+
+    private void Start()
+    {
+        if (HaveTrail)
+        {
+            trail = Instantiate(trailPrefab);
+            trail.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (HaveTrail)
+        {
+            trail.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -46,10 +69,13 @@ public class Bullet : MonoBehaviour
 
     public void Deflect(Transform self, bool autoaim = false)
     {
-        tag = self.tag;
+        if (self.tag != tag)
+        {
+            tag = self.tag;
 
-        if(autoaim && creator != null) SetSpeed(-creator.GetDirectionToPlayer(rb.velocity.magnitude, .5f) * rb.velocity.magnitude);
-        else rb.velocity = self.up * rb.velocity.magnitude;
+            if (autoaim && creator != null) SetSpeed(-creator.GetDirectionToPlayer(rb.velocity.magnitude, .5f) * rb.velocity.magnitude);
+            else rb.velocity = self.up * rb.velocity.magnitude;
+        }
     }
 
     public void Rotate()
@@ -61,5 +87,23 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity = velocity;
         Rotate();
+    }
+
+    private void OnDestroy()
+    {
+        if (HaveTrail)
+        {
+            foreach (TrailRenderer tr in trail.GetComponentsInChildren<TrailRenderer>())
+            {
+                tr.emitting = false;
+            }
+            foreach (ParticleSystem ps in trail.GetComponentsInChildren<ParticleSystem>())
+            {
+                ParticleSystem.EmissionModule emission = ps.emission;
+                emission.enabled = false;
+            }
+
+            Destroy(trail, 5f);
+        }
     }
 }
