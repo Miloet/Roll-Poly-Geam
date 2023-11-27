@@ -4200,7 +4200,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 305429245
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -15138,13 +15138,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: gunProjectileSpeed
-      value: 20
+    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7777538554762339016, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: sniperProjectileSpeed
-      value: 20
+    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2423241424297887132, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 2423241424297887132, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069887480925330266, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.988
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069887480925330266, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.297
       objectReference: {fileID: 0}
     - target: {fileID: 8227454244839020649, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15310,11 +15330,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.03125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.93750006
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_CropFrame
@@ -15339,8 +15359,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 4805274837593914600}
   - {fileID: 1487951566840188300}
-  - {fileID: 4380465754224776556}
   - {fileID: 35217745}
+  - {fileID: 4380465754224776556}
   - {fileID: 1314997547}
   - {fileID: 1128048625}
   - {fileID: 1789776313}

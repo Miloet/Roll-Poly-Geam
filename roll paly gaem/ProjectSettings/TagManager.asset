@@ -49,6 +49,9 @@ TagManager:
   - name: DecoWall
     uniqueID: 683147313
     locked: 0
+  - name: Decoration
+    uniqueID: 1542197059
+    locked: 0
   - name: Enemies
     uniqueID: 1435922109
     locked: 0

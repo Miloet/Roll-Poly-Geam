@@ -38,6 +38,7 @@ public class CharacterController : MonoBehaviour
 
     GameObject shootAim;
 
+    Transform Gun;
     Transform gunBarrel;
     Animator gunAnimator;
     SpriteRenderer gunSR;
@@ -45,8 +46,10 @@ public class CharacterController : MonoBehaviour
 
     public float gunProjectileSpeed;
     public GameObject gunBullet;
+    private GameObject bulletCasing;
+    private Transform bulletCasingPlacement;
 
-    
+    Transform Sniper;
     Transform sniperBarrel;
     Animator sniperAnimator;
     SpriteRenderer sniperSR;
@@ -54,6 +57,8 @@ public class CharacterController : MonoBehaviour
 
     public float sniperProjectileSpeed;
     public GameObject sniperBullet;
+    private GameObject sniperClip;
+    private Transform sniperClipPlacement;
 
     // Start is called before the first frame update
     void Start()
@@ -83,22 +88,33 @@ public class CharacterController : MonoBehaviour
         shootAim = transform.Find("GunAim").gameObject;
 
         var sniper = shootAim.transform.Find("Sniper").gameObject;
-        //sniperAnimator = sniper.GetComponent<Animator>();
-        sniperSR = sniper.GetComponent<SpriteRenderer>();
+        Sniper = sniper.transform;
+        sniperAnimator = sniper.GetComponent<Animator>();
+        sniperSR = sniper.transform.Find("Sprite").GetComponent<SpriteRenderer>();
         sniperBarrel = sniper.transform.Find("Barrel");
+        sniperClipPlacement = sniper.transform.Find("ClipPlacement");
         sniperFlash = sniperBarrel.GetComponent<ParticleSystem>();
+
+        
 
 
         var gun = shootAim.transform.Find("Gun").gameObject;
-        //gunAnimator = gun.GetComponent<Animator>();
-        gunSR = gun.GetComponent<SpriteRenderer>();
+        Gun = gun.transform;
+        gunAnimator = gun.GetComponent<Animator>();
+        gunSR = gun.transform.Find("Sprite").GetComponent<SpriteRenderer>();
         gunBarrel = gun.transform.Find("Barrel");
+        bulletCasingPlacement = gun.transform.Find("ClipPlacement");
         gunFlash = gunBarrel.GetComponent<ParticleSystem>();
 
         gunSR.color = ready;
         sniperSR.color = notReady;
 
         shoot = Buffer.SetBuffer(gameObject, 0.15f);
+
+
+
+        bulletCasing = Resources.Load<GameObject>("Casing");
+        sniperClip = Resources.Load<GameObject>("Clip");
     }
 
     // Update is called once per frame
@@ -124,9 +140,9 @@ public class CharacterController : MonoBehaviour
 
         if (attackCooldown <= 0)
         {
-            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (Vector2)transform.position - mousePos;
-            attackAim.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            Vector2 AmousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 Adirection = (Vector2)transform.position - AmousePos;
+            attackAim.transform.rotation = Quaternion.LookRotation(transform.forward, -Adirection);
         }
 
         if (attackCooldown <= 0 && attack.GetPress())
@@ -142,20 +158,35 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetAxisRaw("Fire") != 0) shoot.Pressed();
 
-        if (shootCooldown <= 0)
+
+        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (Vector2)transform.position - mousePos;
+        shootAim.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+        if (!altFire)
         {
-            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (Vector2)transform.position - mousePos;
-            shootAim.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            direction = (Vector2)Gun.transform.position - mousePos;
+            Gun.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            Gun.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
 
-            direction = (Vector2)gunSR.transform.position - mousePos;
-            gunSR.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
-            gunSR.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
+            Transform parent = Gun.transform.parent;
+            Gun.transform.position = parent.position + parent.rotation * new Vector3(0.5f, 0);
 
-            direction = (Vector2)sniperSR.transform.position - mousePos;
-            sniperSR.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
-            sniperSR.transform.Rotate(new Vector3(0,0,90), Space.Self);
+            Sniper.transform.rotation = Quaternion.Euler(0, 0, 70);
+            Sniper.transform.position = transform.position;
         }
+        else
+        {
+            direction = (Vector2)Sniper.transform.position - mousePos;
+            Sniper.transform.rotation = Quaternion.LookRotation(transform.forward, -direction);
+            Sniper.transform.Rotate(new Vector3(0, 0, 90), Space.Self);
+
+            Transform parent = Gun.transform.parent;
+            Sniper.transform.position = parent.position + parent.rotation * new Vector3(-0.5f, 0);
+                
+            Gun.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Gun.transform.position = transform.position;
+        }
+        
 
         if (shootCooldown <= 0 && shoot.GetPress())
         {
@@ -170,8 +201,19 @@ public class CharacterController : MonoBehaviour
             else
             {
                 altFire = !altFire;
-                if (!altFire) Player.currentAmmo = Player.gunAmmo;
-                else Player.currentAmmo = Player.sniperAmmo;
+                if (!altFire)
+                {
+                    Player.currentAmmo = Player.gunAmmo;
+                    sniperAnimator.SetTrigger("Empty");
+                    gunAnimator.SetTrigger("Reload"); 
+
+                }
+                else
+                {
+                    Player.currentAmmo = Player.sniperAmmo;
+                    sniperAnimator.SetTrigger("Reload");
+                    gunAnimator.SetTrigger("Empty");
+                }
                 shootCooldown = 1.3f;
             }
             
@@ -234,6 +276,14 @@ public class CharacterController : MonoBehaviour
         Bullet b = bullet.GetComponent<Bullet>();
         b.SetSpeed(-direction.normalized * gunProjectileSpeed);
 
+        GameObject casing = Instantiate(bulletCasing);
+        casing.transform.position = bulletCasingPlacement.position;
+        Rigidbody2D rb = casing.GetComponent<Rigidbody2D>();
+        rb.velocity = gunSR.transform.rotation * new Vector2(1f, -3f);
+        rb.angularVelocity = Random.Range(-360f, 360f);
+        Destroy(rb, Random.Range(0.3f, 1f));
+
+        gunAnimator.SetTrigger("Shoot");
 
         shootCooldown = 0.7f;
         yield return new WaitForSeconds(0.1f);
@@ -255,6 +305,18 @@ public class CharacterController : MonoBehaviour
         Vector2 direction = (Vector2)sniperSR.transform.position - mousePos;
         Bullet b = bullet.GetComponent<Bullet>();
         b.SetSpeed(-direction.normalized * sniperProjectileSpeed);
+
+        if(Player.currentAmmo <= 0)
+        {
+            GameObject casing = Instantiate(sniperClip);
+            casing.transform.position = sniperClipPlacement.position;
+            Rigidbody2D rb = casing.GetComponent<Rigidbody2D>();
+            rb.velocity = sniperSR.transform.rotation * new Vector2(1f, 3);
+            rb.angularVelocity = Random.Range(-360f, 360f);
+            Destroy(rb, Random.Range(0.3f, 1f));
+        }
+
+        sniperAnimator.SetTrigger("Shoot");
 
 
         shootCooldown = 1f;
