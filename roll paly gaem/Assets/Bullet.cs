@@ -14,11 +14,23 @@ public class Bullet : MonoBehaviour
     private GameObject trail;
     public GameObject trailPrefab;
 
+    public AudioClip clip;
+
     float destroyDelay = 0;
 
 
     private void Start()
     {
+        if(clip)
+        {
+            var a = Instantiate(new GameObject("SoundEffect")).AddComponent<AudioSource>();
+            a.clip = clip;
+            a.playOnAwake = false;
+            a.Play();
+            a.transform.position = transform.position;
+            Destroy(a.gameObject, 2);
+        }
+
         if (HaveTrail)
         {
             trail = Instantiate(trailPrefab);

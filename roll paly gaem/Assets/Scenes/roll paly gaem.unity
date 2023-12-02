@@ -15138,34 +15138,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 205085390219743272, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423241424297887132, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423241424297887132, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 8069887480925330266, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.988
-      objectReference: {fileID: 0}
-    - target: {fileID: 8069887480925330266, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.297
-      objectReference: {fileID: 0}
     - target: {fileID: 8227454244839020649, guid: e66f998596bcaa4408d1abc1d8e4566c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.16
@@ -15327,26 +15299,6 @@ PrefabInstance:
     - target: {fileID: 223573345264091781, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
-      propertyPath: m_NormalizedViewPortRect.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278607578803372992, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
-      propertyPath: m_CropFrame
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5933755644363656771, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
-      propertyPath: m_GridSnapping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8292012726708286818, guid: c452e12d70d7d9148aeeb07ec2bef2ce, type: 3}
-      propertyPath: speed
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

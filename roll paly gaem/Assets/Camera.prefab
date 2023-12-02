@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6989e181ce90b5c41b37b43543e8360a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
 --- !u!20 &5278607578803372992
 Camera:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_AssetsPPU: 16
   m_RefResolutionX: 300
   m_RefResolutionY: 180
-  m_CropFrame: 2
+  m_CropFrame: 1
   m_GridSnapping: 0
   m_FilterMode: 0
   m_UpscaleRT: 0

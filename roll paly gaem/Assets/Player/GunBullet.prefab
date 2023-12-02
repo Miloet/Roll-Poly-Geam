@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2134201483
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 668ae45aee33b0b4386ab6c0af56f2fd, type: 3}
   m_Color: {r: 1, g: 0.49994406, b: 0.37421376, a: 1}
@@ -126,13 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4521af652f857c742a194c6569471de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  force: 2
+  damage: 4
+  force: 4
   piercing: 0
   rb: {fileID: 299690906802971988}
   creator: {fileID: 0}
   HaveTrail: 1
-  trailPrefab: {fileID: 6086389207106516274, guid: 11303cb9259623a459bb87fd904b28ca, type: 3}
+  trailPrefab: {fileID: 6086389207106516274, guid: 0529fa470190d8f479588b698864e15f, type: 3}
+  clip: {fileID: 8300000, guid: 15ba4c351c9de0442bd7af91f5a76712, type: 3}
 --- !u!61 &1421775971430866284
 BoxCollider2D:
   m_ObjectHideFlags: 0

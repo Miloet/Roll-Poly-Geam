@@ -60,6 +60,8 @@ public class CharacterController : MonoBehaviour
     private GameObject sniperClip;
     private Transform sniperClipPlacement;
 
+    private AudioClip sniperFall;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,7 +114,7 @@ public class CharacterController : MonoBehaviour
         shoot = Buffer.SetBuffer(gameObject, 0.15f);
 
 
-
+        sniperFall = Resources.Load<AudioClip>("PingOnGround");
         bulletCasing = Resources.Load<GameObject>("Casing");
         sniperClip = Resources.Load<GameObject>("Clip");
     }
@@ -183,7 +185,7 @@ public class CharacterController : MonoBehaviour
             Transform parent = Gun.transform.parent;
             Sniper.transform.position = parent.position + parent.rotation * new Vector3(-0.5f, 0);
                 
-            Gun.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Gun.transform.rotation = Quaternion.Euler(0, 0, 125);
             Gun.transform.position = transform.position;
         }
         
@@ -205,14 +207,17 @@ public class CharacterController : MonoBehaviour
                 {
                     Player.currentAmmo = Player.gunAmmo;
                     sniperAnimator.SetTrigger("Empty");
-                    gunAnimator.SetTrigger("Reload"); 
-
+                    gunAnimator.SetTrigger("Reload");
+                    gunSR.color = ready;
+                    sniperSR.color = notReady;
                 }
                 else
                 {
                     Player.currentAmmo = Player.sniperAmmo;
                     sniperAnimator.SetTrigger("Reload");
                     gunAnimator.SetTrigger("Empty");
+                    gunSR.color = notReady;
+                    sniperSR.color = ready;
                 }
                 shootCooldown = 1.3f;
             }
@@ -261,7 +266,6 @@ public class CharacterController : MonoBehaviour
         swordSR.color = notReady;
     }
 
-
     public IEnumerator GunShoot()
     {
         shootCooldown = 9999;
@@ -270,6 +274,8 @@ public class CharacterController : MonoBehaviour
 
         var bullet = Instantiate(gunBullet);
         bullet.transform.position = gunBarrel.position;
+
+        gunFlash.Play();
 
         Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (Vector2)gunSR.transform.position - mousePos;
@@ -301,6 +307,8 @@ public class CharacterController : MonoBehaviour
         var bullet = Instantiate(sniperBullet);
         bullet.transform.position = sniperBarrel.position;
 
+        sniperFlash.Play();
+
         Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (Vector2)sniperSR.transform.position - mousePos;
         Bullet b = bullet.GetComponent<Bullet>();
@@ -313,7 +321,15 @@ public class CharacterController : MonoBehaviour
             Rigidbody2D rb = casing.GetComponent<Rigidbody2D>();
             rb.velocity = sniperSR.transform.rotation * new Vector2(1f, 3);
             rb.angularVelocity = Random.Range(-360f, 360f);
-            Destroy(rb, Random.Range(0.3f, 1f));
+
+            AudioSource a = casing.AddComponent<AudioSource>();
+            a.clip = sniperFall;
+            a.playOnAwake = false;
+
+            float timeUntilFall = Random.Range(0.3f, 1f);
+
+            a.PlayDelayed(timeUntilFall);
+            Destroy(rb, timeUntilFall);
         }
 
         sniperAnimator.SetTrigger("Shoot");
