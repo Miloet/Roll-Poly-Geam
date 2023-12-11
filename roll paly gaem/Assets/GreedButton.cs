@@ -7,6 +7,9 @@ public class GreedButton : MonoBehaviour
     public Sprite unactive;
     public Sprite active;
 
+    public bool greed;
+    public bool spawn;
+
     SpriteRenderer sr;
 
     private void Start()
@@ -22,7 +25,8 @@ public class GreedButton : MonoBehaviour
             this.enabled = false;
             sr.sprite = active;
             Invoke("Return", 1);
-            Game.GreedUp();
+            if (greed) Game.GreedUp();
+            if(spawn) Game.Spawn(Game.Enemy.Shooter,3 + Game.greed);
         }
     }
 

@@ -1078,6 +1078,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 0
+  Heart: {fileID: 4545051269960341609, guid: d30d1ed35f0ed78418ef4e27f905e276, type: 3}
+  UI: {fileID: 0}
+  healthUI: []
 --- !u!114 &7777538554762339016
 MonoBehaviour:
   m_ObjectHideFlags: 0

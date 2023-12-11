@@ -23,12 +23,13 @@ public class Bullet : MonoBehaviour
     {
         if(clip)
         {
-            var a = Instantiate(new GameObject("SoundEffect")).AddComponent<AudioSource>();
+            var g = new GameObject("SoundEffect");
+            var a = g.AddComponent<AudioSource>();
             a.clip = clip;
             a.playOnAwake = false;
             a.Play();
             a.transform.position = transform.position;
-            Destroy(a.gameObject, 2);
+            Destroy(g, 2);
         }
 
         if (HaveTrail)

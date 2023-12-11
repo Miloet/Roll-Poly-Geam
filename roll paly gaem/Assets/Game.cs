@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public bool PassiveSpawn;
 
-    public GameObject checker;
-    public static GameObject s_checker;
 
     public static GameObject defaultSpawnpoint;
 
     public float spawnTime;
     static float buffer = 3;
-    static int greed = 0;
+    public static int greed = 0;
 
     static int times;
 
@@ -23,6 +22,8 @@ public class Game : MonoBehaviour
     }
 
     public GameObject[] enemies;
+    public static GameObject[] s_enemies;
+
 
     public class EnemyGroup
     {
@@ -42,6 +43,7 @@ public class Game : MonoBehaviour
     static Collider2D decoWallCollider;
     private void Start()
     {
+        s_enemies = enemies;
         wallCollider = GameObject.Find("Grid/Walls").GetComponent<Collider2D>();
         decoWallCollider = GameObject.Find("Grid/DecoWall").GetComponent<Collider2D>();
         cam = Camera.main;
@@ -50,23 +52,26 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (spawnTime <= 0)
+        if (PassiveSpawn)
         {
-            Spawn(Enemy.Shooter, 3 + greed);
-            spawnTime = 5;
+            if (spawnTime <= 0)
+            {
+                Spawn(Enemy.Shooter, 3 + greed);
+                spawnTime = 5;
+            }
+            else spawnTime -= Time.deltaTime;
         }
-        else spawnTime -= Time.deltaTime;
     }
 
 
-    public void SpawnGroup(params EnemyGroup[] groups)
+    public static void SpawnGroup(params EnemyGroup[] groups)
     {
         foreach(EnemyGroup group in groups)
         {
             Spawn(group.type, group.amount);
         }
     }
-    public void SpawnGroup(Vector2 origin, params EnemyGroup[] groups)
+    public static void SpawnGroup(Vector2 origin, params EnemyGroup[] groups)
     {
         foreach (EnemyGroup group in groups)
         {
@@ -74,27 +79,27 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void Spawn(Enemy enemy, int n = 1)
+    public static void Spawn(Enemy enemy, int n = 1)
     {
         for (int i = 0; i < n; i++)
         {
-            var g = Instantiate(enemies[(int)enemy]);
+            var g = Instantiate(s_enemies[(int)enemy]);
             times = 0;
             g.transform.position = GetValidPosition();
         }
     }
-    public void Spawn(Enemy enemy, Vector2 origin, int n = 1)
+    public static void Spawn(Enemy enemy, Vector2 origin, int n = 1)
     {
         for (int i = 0; i < n; i++)
         {
-            var g = Instantiate(enemies[(int)enemy]);
+            var g = Instantiate(s_enemies[(int)enemy]);
 
             Vector2 random = new Vector2(Random.Range(-buffer, buffer), Random.Range(-buffer, buffer))/2f;
 
             g.transform.position = origin + random;
         }
     }
-
+    
 
 
     public static Vector2 GetValidPosition()

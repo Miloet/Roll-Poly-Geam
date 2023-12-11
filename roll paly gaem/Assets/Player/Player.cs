@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
 
     private float inv;
 
-    public static int sniperAmmo = 7;
-    public static int gunAmmo = 4;
+    public static int sniperAmmo = 3;
+    public static int gunAmmo = 3;
 
     public GameObject Heart;
     public GameObject UI;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         {
             healthUI[i] = Instantiate(Heart, UI.transform).GetComponent<Image>();
             healthUI[i].sprite = FullHeart;
-            healthUI[i].transform.position = new Vector2(50f + 32f*2f * i, healthUI[i].transform.position.y);
+            healthUI[i].transform.position = new Vector2(30f + 32 * i, healthUI[i].transform.position.y);
         }
     }
     public void TakeDamage(int dmg)
