@@ -30,7 +30,7 @@ public class CharacterController : MonoBehaviour
     SpriteRenderer swordSR;
 
     Color ready = new Color(1, 1, 1, 1);
-    Color notReady = new Color(0.8f, 0.8f, 0.8f, 1);
+    Color notReady = new Color(0.5f, 0.5f, 0.5f, 0f);
 
     Buffer shoot;
     bool altFire;
@@ -271,16 +271,17 @@ public class CharacterController : MonoBehaviour
         shootCooldown = 9999;
         yield return new WaitForSeconds(0.1f);
         walkSpeed = walkSpeed * 1.2f;
-
-        var bullet = Instantiate(gunBullet);
-        bullet.transform.position = gunBarrel.position;
+        for (int i = 0; i < 4; i++)
+        {
+            var bullet = Instantiate(gunBullet);
+            bullet.transform.position = gunBarrel.position;
+            Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (Vector2)gunSR.transform.position - mousePos + new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            Bullet b = bullet.GetComponent<Bullet>();
+            b.SetSpeed(-direction.normalized * gunProjectileSpeed);
+        }
 
         gunFlash.Play();
-
-        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (Vector2)gunSR.transform.position - mousePos;
-        Bullet b = bullet.GetComponent<Bullet>();
-        b.SetSpeed(-direction.normalized * gunProjectileSpeed);
 
         GameObject casing = Instantiate(bulletCasing);
         casing.transform.position = bulletCasingPlacement.position;

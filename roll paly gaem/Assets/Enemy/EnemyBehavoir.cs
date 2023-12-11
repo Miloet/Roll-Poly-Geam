@@ -163,7 +163,7 @@ public class EnemyBehavoir : MonoBehaviour
 
         SwitchState(MoveType.Attack, 3f);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             Shoot(9,0.5f,0.5f,5);
             yield return new WaitForSeconds(0.2f);

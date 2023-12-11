@@ -74,10 +74,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1435922109
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 668ae45aee33b0b4386ab6c0af56f2fd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,6 +131,9 @@ MonoBehaviour:
   piercing: 0
   rb: {fileID: 299690906802971988}
   creator: {fileID: 0}
+  HaveTrail: 0
+  trailPrefab: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!61 &1421775971430866284
 BoxCollider2D:
   m_ObjectHideFlags: 0
