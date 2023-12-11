@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public float walkSpeed = 1f;
-    public float originalWalkSpeed;
+    public static float originalWalkSpeed;
     public static Vector2 movementInput;
 
     //Componants

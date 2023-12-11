@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class StartQuest : MonoBehaviour
 {
+
+    public enum Reward
+    {
+        None,
+        SpeedUp,
+        AmmoUp,
+        HpUp
+    }
+
+    public Reward reward = Reward.None;
+
+    public int enemy = 10;
+    public int coin = 30;
+
     public GameObject note;
     public GameObject quest;
 
@@ -11,6 +25,21 @@ public class StartQuest : MonoBehaviour
     {
         note.SetActive(false);
         quest.SetActive(false);
+
+        switch(reward)
+        {
+            case Reward.SpeedUp:
+                CharacterController.originalWalkSpeed += 1;
+                break;
+            case Reward.AmmoUp:
+                Player.gunAmmo += 1;
+                Player.sniperAmmo += 1;
+                break;
+            case Reward.HpUp:
+                Player.MaxHP += 2;
+                break;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,6 +57,6 @@ public class StartQuest : MonoBehaviour
         Destroy(note);
         quest.SetActive(true);
 
-        Quest.MakeQuest(10, 30);
+        Quest.MakeQuest(enemy, coin);
     }
 }

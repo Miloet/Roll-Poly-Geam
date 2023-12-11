@@ -1590,7 +1590,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 13
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 5
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1990,8 +1990,8 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 12
-      m_TileSpriteIndex: 5
-      m_TileMatrixIndex: 5
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -2020,8 +2020,8 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 12
-      m_TileSpriteIndex: 5
-      m_TileMatrixIndex: 5
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -2050,8 +2050,8 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 12
-      m_TileSpriteIndex: 5
-      m_TileMatrixIndex: 5
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -2301,15 +2301,15 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 77
+  - m_RefCount: 80
     m_Data: {fileID: -965005497, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -1169345287, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1555460910, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 42
+  - m_RefCount: 1
+    m_Data: {fileID: 1555460910, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
+  - m_RefCount: 39
     m_Data: {fileID: 43232292, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
   - m_RefCount: 11
     m_Data: {fileID: -1225540054, guid: aa6310b1fb5da3d46a29b313999b689b, type: 3}
@@ -2384,7 +2384,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 37
+  - m_RefCount: 40
     m_Data:
       e00: 0.000000059604645
       e01: 0.99999994
@@ -2420,7 +2420,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 114
+  - m_RefCount: 111
     m_Data:
       e00: 1
       e01: 0
@@ -21086,7 +21086,7 @@ Transform:
   m_GameObject: {fileID: 1116378639}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: -9.5, z: 0}
+  m_LocalPosition: {x: -3.37, y: -9.5, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21104,6 +21104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1c65d0a111d3e49b48bc3f2d1909c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reward: 1
+  enemy: 0
+  coin: 100
   note: {fileID: 1971492318}
   quest: {fileID: 655175165}
 --- !u!1 &1567803435
