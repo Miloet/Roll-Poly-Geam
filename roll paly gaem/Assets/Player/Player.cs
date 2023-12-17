@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         {
             healthUI[i] = Instantiate(Heart, UI.transform).GetComponent<Image>();
             healthUI[i].sprite = FullHeart;
-            healthUI[i].transform.position = new Vector2(30f + 32 * i, healthUI[i].transform.position.y);
+            healthUI[i].transform.position = new Vector2(30f + 64f * i, healthUI[i].transform.position.y);
         }
     }
     public void TakeDamage(int dmg)
@@ -82,6 +82,8 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        Quest.ResetProgress();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

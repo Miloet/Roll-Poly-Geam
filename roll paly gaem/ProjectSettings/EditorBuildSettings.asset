@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OpenForBun.unity
     guid: ded8c57fa07c6a24a9c464ec75bafb3a
+  - enabled: 1
+    path: Assets/Scenes/Fight2.unity
+    guid: 56ef13ebfb3e1a04a9179eddb33f622b
   m_configObjects: {}

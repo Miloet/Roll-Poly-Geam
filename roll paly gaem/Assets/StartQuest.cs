@@ -17,6 +17,7 @@ public class StartQuest : MonoBehaviour
 
     public int enemy = 10;
     public int coin = 30;
+    public int time = 0;
 
     public GameObject note;
     public GameObject quest;
@@ -57,6 +58,6 @@ public class StartQuest : MonoBehaviour
         Destroy(note);
         quest.SetActive(true);
 
-        Quest.MakeQuest(enemy, coin);
+        Quest.MakeQuest(enemy, coin, time);
     }
 }

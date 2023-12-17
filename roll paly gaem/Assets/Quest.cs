@@ -7,13 +7,19 @@ public class Quest : MonoBehaviour
 {
     public TextMeshProUGUI coins;
     public TextMeshProUGUI enemies;
+    public TextMeshProUGUI time;
+
 
     public GameObject onQuestComplete;
 
-    public static float enemiesKilled;
-    public static float enemyQuota;
-    public static float coinsCollected;
-    public static float coinQuota;
+    public static int enemiesKilled;
+    public static int enemyQuota;
+    public static int coinsCollected;
+    public static int coinQuota;
+
+    public static float timeSurvived;
+    public static float timeQuota;
+
 
 
     // Update is called once per frame
@@ -33,16 +39,33 @@ public class Quest : MonoBehaviour
         }
         else coins.text = "";
 
-        if(coinsCollected >= coinQuota && enemiesKilled >= enemyQuota) onQuestComplete.SetActive(false);
+        if (timeQuota > 0)
+        {
+            if (timeSurvived >= coinQuota) time.text = "Collect Coins: Done!";
+            else time.text = $"Collect Coins: {timeSurvived.ToString("0.0")} / {timeQuota}";
+        }
+        else time.text = "";
+
+        if (coinsCollected >= coinQuota && enemiesKilled >= enemyQuota && timeSurvived >= timeQuota) onQuestComplete.SetActive(false);
     }
 
-    public static void MakeQuest(int enemies = 0, int coins = 0)
+    public static void MakeQuest(int enemies = 0, int coins = 0, int time = 0)
     {
         enemyQuota = enemies;
         coinQuota = coins;
+        timeQuota = time;
 
         enemiesKilled = 0;
         coinsCollected = 0;
+        timeSurvived = 0;
+    }
+
+
+    public static void ResetProgress()
+    {
+        enemiesKilled = 0;
+        coinsCollected = 0;
+        timeSurvived = 0;
     }
 
 }

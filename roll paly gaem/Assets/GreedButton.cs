@@ -9,6 +9,9 @@ public class GreedButton : MonoBehaviour
 
     public bool greed;
     public bool spawn;
+    public bool startPassiveSpawn;
+    public static bool begin;
+
 
     SpriteRenderer sr;
 
@@ -16,12 +19,22 @@ public class GreedButton : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = unactive;
+        begin = false;
+    }
+    private void Update()
+    {
+        if(begin)
+        {
+            Quest.timeSurvived += Time.deltaTime * Game.greed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Player")
         {
+            if (startPassiveSpawn && !begin) FindObjectOfType<Game>().PassiveSpawn = true;
+            begin = true;
             this.enabled = false;
             sr.sprite = active;
             Invoke("Return", 1);
