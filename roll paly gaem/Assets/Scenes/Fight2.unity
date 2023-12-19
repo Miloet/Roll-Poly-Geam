@@ -25933,6 +25933,10 @@ PrefabInstance:
       propertyPath: spawn
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4846068068515972298, guid: 267175e0e3049bd4b8a217db1cf5ce64, type: 3}
+      propertyPath: startPassiveSpawn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8879053820800905311, guid: 267175e0e3049bd4b8a217db1cf5ce64, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.5

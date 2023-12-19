@@ -35,7 +35,7 @@ public class GreedButton : MonoBehaviour
         {
             if (startPassiveSpawn && !begin) FindObjectOfType<Game>().PassiveSpawn = true;
             begin = true;
-            this.enabled = false;
+            enabled = false;
             sr.sprite = active;
             Invoke("Return", 1);
             if (greed) Game.GreedUp();

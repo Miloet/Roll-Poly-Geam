@@ -115,8 +115,7 @@ public class Bullet : MonoBehaviour
                 ParticleSystem.EmissionModule emission = ps.emission;
                 emission.enabled = false;
             }
-
-            Destroy(trail, 5f);
+            if(trail) Destroy(trail, 5f);
         }
     }
 }
